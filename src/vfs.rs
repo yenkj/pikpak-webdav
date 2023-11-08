@@ -45,8 +45,8 @@ use reqwest::header::RANGE;
 pub use crate::model::*;
 
 
-const ORIGIN: &str = "https://api-drive.mypikpak.com/drive/v1/files";
-const REFERER: &str = "https://api-drive.mypikpak.com/drive/v1/files";
+const ORIGIN: &str = "https://api-drive.pikpakdrive.com/drive/v1/files";
+const REFERER: &str = "https://api-drive.pikpakdrive.com/drive/v1/files";
 const UA: &str = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36";
 const UPLOAD_CHUNK_SIZE: u64 = 16 * 1024 * 1024; // 16MB
 
@@ -127,9 +127,9 @@ impl WebdavDriveFileSystem {
         data.insert("username", &self.credentials.username);
         data.insert("password", &self.credentials.password);
 
-        let mut rurl = format!("https://user.mypikpak.com/v1/auth/signin");
+        let mut rurl = format!("https://user.pikpakdrive.com/v1/auth/signin");
         if self.proxy_url.len()>4{
-            rurl = format!("{}/https://user.mypikpak.com/v1/auth/signin",&self.proxy_url);
+            rurl = format!("{}/https://user.pikpakdrive.com/v1/auth/signin",&self.proxy_url);
         }
 
        let url = rurl;
@@ -370,9 +370,9 @@ impl WebdavDriveFileSystem {
     }
 
     async fn create_folder(&self, parent_id:&str, folder_name: &str) -> Result<WebdavFile> {
-        let mut rurl = format!("https://api-drive.mypikpak.com/drive/v1/files");
+        let mut rurl = format!("https://api-drive.pikpakdrive.com/drive/v1/files");
         if self.proxy_url.len()>4{
-            rurl = format!("{}/https://api-drive.mypikpak.com/drive/v1/files",&self.proxy_url);
+            rurl = format!("{}/https://api-drive.pikpakdrive.com/drive/v1/files",&self.proxy_url);
         }
         let url = rurl;
         let req = CreateFolderRequest{kind:"drive#folder",name:folder_name,parent_id:parent_id};
@@ -389,11 +389,11 @@ impl WebdavDriveFileSystem {
     }
 
     pub async fn remove_file(&self, file_id: &str) -> Result<()> {
-        //let trashurl = "https://api-drive.mypikpak.com/drive/v1/files:batchTrash"    //放入回收站
-        //let deleteurl = "https://api-drive.mypikpak.com/drive/v1/files:batchDelete"   //彻底删除
-        let mut rurl = format!("https://api-drive.mypikpak.com/drive/v1/files:batchDelete");
+        //let trashurl = "https://api-drive.pikpakdrive.com/drive/v1/files:batchTrash"    //放入回收站
+        //let deleteurl = "https://api-drive.pikpakdrive.com/drive/v1/files:batchDelete"   //彻底删除
+        let mut rurl = format!("https://api-drive.pikpakdrive.com/drive/v1/files:batchDelete");
         if self.proxy_url.len()>4{
-            rurl = format!("{}/https://api-drive.mypikpak.com/drive/v1/files:batchDelete",&self.proxy_url);
+            rurl = format!("{}/https://api-drive.pikpakdrive.com/drive/v1/files:batchDelete",&self.proxy_url);
         }
         let url = rurl;
         let req = DelFileRequest{ids:vec![file_id.to_string()]};
@@ -402,9 +402,9 @@ impl WebdavDriveFileSystem {
     }
 
     pub async fn rename_file(&self, file_id: &str, new_name: &str) -> Result<()> {
-        let mut rurl = format!("https://api-drive.mypikpak.com/drive/v1/files/{}",file_id);
+        let mut rurl = format!("https://api-drive.pikpakdrive.com/drive/v1/files/{}",file_id);
         if self.proxy_url.len()>4{
-            rurl = format!("{}/https://api-drive.mypikpak.com/drive/v1/files/{}",&self.proxy_url,file_id);
+            rurl = format!("{}/https://api-drive.pikpakdrive.com/drive/v1/files/{}",&self.proxy_url,file_id);
         }
         let url = rurl;
         let req = RenameFileRequest{name:new_name};
@@ -416,9 +416,9 @@ impl WebdavDriveFileSystem {
 
 
     pub async fn move_file(&self, file_id: &str, new_parent_id: &str) -> Result<()> {
-        let mut rurl = format!("https://api-drive.mypikpak.com/drive/v1/files:batchMove");
+        let mut rurl = format!("https://api-drive.pikpakdrive.com/drive/v1/files:batchMove");
         if self.proxy_url.len()>4{
-            rurl = format!("{}/https://api-drive.mypikpak.com/drive/v1/files:batchMove",&self.proxy_url);
+            rurl = format!("{}/https://api-drive.pikpakdrive.com/drive/v1/files:batchMove",&self.proxy_url);
         }
         let url = rurl;
         let req = MoveFileRequest{ids:vec![file_id.to_string()],to:MoveTo { parent_id: new_parent_id.to_string()}};
@@ -431,9 +431,9 @@ impl WebdavDriveFileSystem {
     }
 
     pub async fn copy_file(&self, file_id: &str, new_parent_id: &str) -> Result<()> {
-        let mut rurl = format!("https://api-drive.mypikpak.com/drive/v1/files:batchCopy");
+        let mut rurl = format!("https://api-drive.pikpakdrive.com/drive/v1/files:batchCopy");
         if self.proxy_url.len()>4{
-            rurl = format!("{}/https://api-drive.mypikpak.com/drive/v1/files:batchCopy",&self.proxy_url);
+            rurl = format!("{}/https://api-drive.pikpakdrive.com/drive/v1/files:batchCopy",&self.proxy_url);
         }
         let url = rurl;
         let req = MoveFileRequest{ids:vec![file_id.to_string()],to:MoveTo { parent_id: new_parent_id.to_string()}};
@@ -446,9 +446,9 @@ impl WebdavDriveFileSystem {
     }
 
     pub async fn get_useage_quota(&self) -> Result<(u64, u64)> {
-        let mut rurl = format!("https://api-drive.mypikpak.com/drive/v1/about");
+        let mut rurl = format!("https://api-drive.pikpakdrive.com/drive/v1/about");
         if self.proxy_url.len()>4{
-            rurl = format!("{}/https://api-drive.mypikpak.com/drive/v1/about",&self.proxy_url);
+            rurl = format!("{}/https://api-drive.pikpakdrive.com/drive/v1/about",&self.proxy_url);
         }
         let url = rurl;
        
@@ -475,9 +475,9 @@ impl WebdavDriveFileSystem {
         };
 
         loop{
-            let mut rurl = format!("https://api-drive.mypikpak.com/drive/v1/files?parent_id={}&thumbnail_size=SIZE_LARGE&with_audit=true&page_token={}&limit=0&filters={{\"phase\":{{\"eq\":\"PHASE_TYPE_COMPLETE\"}},\"trashed\":{{\"eq\":false}}}}",&parent_file_id,pagetoken);
+            let mut rurl = format!("https://api-drive.pikpakdrive.com/drive/v1/files?parent_id={}&thumbnail_size=SIZE_LARGE&with_audit=true&page_token={}&limit=0&filters={{\"phase\":{{\"eq\":\"PHASE_TYPE_COMPLETE\"}},\"trashed\":{{\"eq\":false}}}}",&parent_file_id,pagetoken);
             if self.proxy_url.len()>4{
-                rurl = format!("{}/https://api-drive.mypikpak.com/drive/v1/files?parent_id={}&thumbnail_size=SIZE_LARGE&with_audit=true&page_token={}&limit=0&filters={{\"phase\":{{\"eq\":\"PHASE_TYPE_COMPLETE\"}},\"trashed\":{{\"eq\":false}}}}",&self.proxy_url,&parent_file_id,pagetoken);
+                rurl = format!("{}/https://api-drive.pikpakdrive.com/drive/v1/files?parent_id={}&thumbnail_size=SIZE_LARGE&with_audit=true&page_token={}&limit=0&filters={{\"phase\":{{\"eq\":\"PHASE_TYPE_COMPLETE\"}},\"trashed\":{{\"eq\":false}}}}",&self.proxy_url,&parent_file_id,pagetoken);
             }
             let url = rurl;
 
@@ -656,9 +656,9 @@ impl WebdavDriveFileSystem {
 
     async fn get_download_url(&self,file_id: &str) -> Result<String> {
         debug!("get_download_url");
-        let mut rurl = format!("https://api-drive.mypikpak.com/drive/v1/files/{}",file_id.to_string());
+        let mut rurl = format!("https://api-drive.pikpakdrive.com/drive/v1/files/{}",file_id.to_string());
         if self.proxy_url.len()>4{
-            rurl = format!("{}/https://api-drive.mypikpak.com/drive/v1/files/{}",&self.proxy_url,file_id.to_string());
+            rurl = format!("{}/https://api-drive.pikpakdrive.com/drive/v1/files/{}",&self.proxy_url,file_id.to_string());
         }
 
         let url = rurl;
@@ -691,9 +691,9 @@ impl WebdavDriveFileSystem {
 
 
     pub async fn create_file_with_proof(&self,name: &str, parent_file_id: &str, hash:&str, size: u64,chunk_count: u64) ->  Result<UploadResponse> {
-        let mut url = format!("https://api-drive.mypikpak.com/drive/v1/files");
+        let mut url = format!("https://api-drive.pikpakdrive.com/drive/v1/files");
         if self.proxy_url.len()>4{
-            url = format!("{}/https://api-drive.mypikpak.com/drive/v1/files",&self.proxy_url);
+            url = format!("{}/https://api-drive.pikpakdrive.com/drive/v1/files",&self.proxy_url);
         }
         let req = UploadRequest{
             kind:"drive#file".to_string(),
@@ -716,7 +716,7 @@ impl WebdavDriveFileSystem {
 
         let res = self.client.post(url)
             .header(reqwest::header::CONTENT_LENGTH, payload.len())
-            .header(reqwest::header::HOST, "api-drive.mypikpak.com")
+            .header(reqwest::header::HOST, "api-drive.pikpakdrive.com")
             .header(reqwest::header::AUTHORIZATION, format!("Bearer {}",access_token))
             .body(payload)
             .send()
