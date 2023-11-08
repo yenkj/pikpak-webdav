@@ -293,7 +293,7 @@
 										</div>
 										<div style="margin:10px 0 10px 5px;" class="splitLine"></div>
 										<div class="SimpleNote" id="head_illustrate"><i></i>
-											<p>PIKPAK网盘  可以登录<a href="https://mypikpak.com/" target="_blank">PIKPAK网盘网页版</a></p>
+											<p>PIKPAK网盘  可以登录<a href="https://pikpakdrive.com/" target="_blank">PIKPAK网盘网页版</a></p>
 										</div><div>&nbsp;</div>
                                                             <table style="margin:20px 0px 0px 0px;" width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3" class="FormTable">
                                                                 <thead>
