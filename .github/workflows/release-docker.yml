@@ -30,6 +30,7 @@ jobs:
       - name: Build wheels - manylinux
         uses: messense/maturin-action@main
         with:
+          maturin-version: v1.4.0
           target: ${{ matrix.platform.target }}
           manylinux: auto
           container: off
