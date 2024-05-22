@@ -1,4 +1,4 @@
-
+#  目前rclone已经支持PikPak，推荐使用Rclone
 #  能用  但是由于webdav机制 会大量请求服务器  体验不好  不建议使用
 # pikpak-webdav
 演示视频:https://youtu.be/Fkms3_qanZQ   
