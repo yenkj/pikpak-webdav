@@ -47,7 +47,8 @@ pub use crate::model::*;
 
 const ORIGIN: &str = "https://api-drive.mypikpak.com/drive/v1/files";
 const REFERER: &str = "https://api-drive.mypikpak.com/drive/v1/files";
-const UA: &str = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36";
+// const UA: &str = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36";
+const UA: &str = "PikPak";
 const UPLOAD_CHUNK_SIZE: u64 = 16 * 1024 * 1024; // 16MB
 
 #[derive(Clone)]
@@ -124,13 +125,19 @@ impl WebdavDriveFileSystem {
         data.insert("captcha_token", "");
         data.insert("client_id", "YNxT9w7GMdWvEOKa");
         data.insert("client_secret", "dbw2OtmVEeuUvIptb1Coyg");
+        data.insert("grant_type", "password");
         data.insert("username", &self.credentials.username);
         data.insert("password", &self.credentials.password);
 
-        let mut rurl = format!("https://user.mypikpak.com/v1/auth/signin");
+        let mut rurl = format!("https://user.mypikpak.com/v1/auth/token");
         if self.proxy_url.len()>4{
-            rurl = format!("{}/https://user.mypikpak.com/v1/auth/signin",&self.proxy_url);
+            rurl = format!("{}/https://user.mypikpak.com/v1/auth/token",&self.proxy_url);
         }
+        // let mut rurl = format!("https://user.mypikpak.com/v1/auth/signin");
+        // if self.proxy_url.len()>4{
+        //     rurl = format!("{}/https://user.mypikpak.com/v1/auth/signin",&self.proxy_url);
+        // }
+
 
        let url = rurl;
        let res = self
