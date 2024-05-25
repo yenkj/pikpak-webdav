@@ -672,11 +672,23 @@ impl WebdavDriveFileSystem {
         let res: WebdavFile = self.request(url)
             .await?
             .context("expect response")?;
+
+        let mut videourl = "";
+
         if(res.mime_type.contains("video/")){
-            Ok(res.medias[0].link.url.clone())
+            videourl = &res.medias[0].link.url;
+            //Ok(res.medias[0].link.url.clone())
         }else{
-            Ok(res.web_content_link.clone())
+            videourl = &res.web_content_link;
+            //Ok(res.web_content_link.clone())
         }
+
+
+        if self.proxy_url.len()>4{
+            return Ok(format!("{}/{}",&self.proxy_url,videourl));
+        }
+
+        Ok(videourl.to_string())
 
     }
 
