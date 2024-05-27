@@ -7,37 +7,45 @@ on:
         description: 'Tag to release'
         required: true
         default: 'v0.0.3'
+        
 jobs:
   windows:
     runs-on: windows-latest
     strategy:
+      fail-fast: false
       matrix:
         platform:
           - arch: x64
             target: x86_64-pc-windows-msvc
           - arch: x86
             target: i686-pc-windows-msvc
+          - arch: arm64
+            target: aarch64-pc-windows-msvc
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        if: matrix.platform.arch != 'arm64'
         with:
           python-version: 3.9
           architecture: ${{ matrix.platform.arch }}
-      - name: Install Rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          profile: minimal
-          default: true
+      - uses: dtolnay/rust-toolchain@stable
       - name: Build wheels
-        uses: messense/maturin-action@v1
+        if: matrix.platform.arch != 'arm64'
+        uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist --no-sdist --strip
-      - name: Install built wheel
-        run: |
-          pip install pikpak-webdav --no-index --find-links dist --force-reinstall
-          pikpak-webdav --help
+          args: --release --out dist --strip
+      - name: Build wheels
+        if: matrix.platform.arch == 'arm64'
+        uses: PyO3/maturin-action@v1
+        with:
+          target: ${{ matrix.platform.target }}
+          args: --release --out dist --strip --no-default-features --features atomic64,native-tls
+          sccache: 'true'
+      # - name: Install built wheel
+      #   run: |
+      #     pip install pikpak-webdav --no-index --find-links dist --force-reinstall
+      #     pikpak-webdav --help
       - name: Upload wheels
         uses: actions/upload-artifact@v2
         with:
