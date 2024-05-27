@@ -24,18 +24,18 @@ jobs:
           target: x86_64-apple-darwin
           args: --release --out dist --strip
           sccache: 'true'
-      - name: Install built wheel - x86_64
-        run: |
-          pip install pikpak-webdav --no-index --find-links dist --force-reinstall
-          pikpak-webdav --help
+      # - name: Install built wheel - x86_64
+      #   run: |
+      #     pip install pikpak-webdav --no-index --find-links dist --force-reinstall
+      #     pikpak-webdav --help
       - name: Build wheels - universal2
         uses: messense/maturin-action@v1
         with:
           args: --release --universal2 --out dist --strip 
-      - name: Install built wheel - universal2
-        run: |
-          pip install pikpak-webdav --no-index --find-links dist --force-reinstall
-          pikpak-webdav --help
+      # - name: Install built wheel - universal2
+      #   run: |
+      #     pip install pikpak-webdav --no-index --find-links dist --force-reinstall
+      #     pikpak-webdav --help
       - name: Upload wheels
         uses: actions/upload-artifact@v2
         with:
