@@ -5,7 +5,7 @@ PKG_VERSION:=0.0.3
 PKG_RELEASE:=$(AUTORELESE)
 
 PKG_LICENSE:=MIT
-PKG_MAINTAINER:=ykxVK8yL5L
+PKG_MAINTAINER:=ykj363963169
 
 PKG_LIBC:=musl
 ifeq ($(ARCH),arm)
@@ -23,7 +23,7 @@ ifeq ($(ARCH),i386)
 endif
 
 PKG_SOURCE:=pikpak-webdav-v$(PKG_VERSION).$(PKG_ARCH)-unknown-linux-$(PKG_LIBC).tar.gz
-PKG_SOURCE_URL:=https://github.com/ykxVK8yL5L/pikpak-webdav/releases/download/v$(PKG_VERSION)/
+PKG_SOURCE_URL:=https://github.com/yenkj/pikpak-webdav/releases/download/v$(PKG_VERSION)/
 PKG_HASH:=skip
 
 include $(INCLUDE_DIR)/package.mk
