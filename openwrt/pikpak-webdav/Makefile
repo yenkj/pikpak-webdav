@@ -32,7 +32,7 @@ define Package/$(PKG_NAME)
 	SECTION:=multimedia
 	CATEGORY:=Multimedia
 	TITLE:=WebDAV server for Pikpak
-	URL:=https://github.com/ykxVK8yL5L/pikpak-webdav
+	URL:=https://github.com/yenkj/pikpak-webdav
 endef
 
 define Package/$(PKG_NAME)/description
