@@ -69,8 +69,8 @@ msgstr "日志"
 msgid "Debug Mode"
 msgstr "调试模式"
 
-msgid "<a href=\"https://github.com/ykxVK8yL5L/pikpak-webdav\" target=\"_blank\">Project GitHub URL</a>"
-msgstr "<a href=\"https://github.com/ykxVK8yL5L/pikpak-webdav\" target=\"_blank\">GitHub 项目地址</a>"
+msgid "<a href=\"https://github.com/yenkj/pikpak-webdav\" target=\"_blank\">Project GitHub URL</a>"
+msgstr "<a href=\"https://github.com/yenkj/pikpak-webdav\" target=\"_blank\">GitHub 项目地址</a>"
 
 
 msgid "Restrict access to a folder of Pikpak, defaults to / which means no restrictions"
