@@ -6,7 +6,7 @@ PKG_RELEASE:=1
 PKG_PO_VERSION:=$(PKG_VERSION)-$(PKG_RELEASE)
 
 PKG_LICENSE:=MIT
-PKG_MAINTAINER:=ykxVK8yL5L <ykxVK8yL5L@github.com>
+PKG_MAINTAINER:=ykj363963169 <yenkj@github.com>
 
 LUCI_TITLE:=LuCI Support for pikpak-webdav
 LUCI_PKGARCH:=all
